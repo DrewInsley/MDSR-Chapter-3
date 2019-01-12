@@ -83,7 +83,7 @@ g +
 g +
   geom_point(alpha = 0.9, aes(size = roadways)) +
   coord_trans(y = "log10") +
-  facet_wrap(~net_users, nrow = 1) +
+  facet_wrap(~ net_users, nrow = 1) +
   theme(legend.position = "top")
 ```
 
@@ -154,9 +154,45 @@ HELPrct %>%
   coord_flip()
 ```
 
-```{r}
+### Sec 3.2.2
 
+```{r}
+# p. 43
+g <-
+  SAT_2010 %>%
+  ggplot(aes(x = expenditure, y = math)) +
+  geom_point()
 ```
 
+```{r}
+# p. 43
+g <-
+  g +
+  geom_smooth(method = "lm", se = 0) +
+  xlab("Average expenditure per student ($1000)") +
+  ylab("Average score on math SAT")
+```
 
+```{r}
+# p. 44
+SAT_2010 <-
+  SAT_2010 %>%
+  mutate(SAT_rate = cut(sat_pct, breaks = c(0, 30, 60, 100), labels = c("low", "medium", "high")))
+
+g <-
+  g %+%
+  SAT_2010
+```
+
+```{r}
+# p. 44
+g +
+  aes(color = SAT_rate)
+```
+
+```{r}
+# p. 45
+g +
+  facet_wrap(~ SAT_rate)
+```
 
