@@ -7,24 +7,54 @@ output: html_notebook
 
 # Front Matter
 
-
-
-
-
-
-
-
-
-
-
-
-
+```{r message=FALSE, warning=FALSE}
+# clean the enviornment
+rm(list = ls())
+# load packages
+library(mdsr)
+#load data
+data("CIACountries")
+```
 
 # Chapter Notes
 
-## Section 4.1  
+## Section 3.1
 
 *[Note: include a placeholder for each section even if there's no programming required]*
 
 
-### Sec 4.1.1
+### Sec 3.1.1
+
+```{r}
+# p. 35
+g <-
+  CIACountries %>%
+  ggplot(aes(x = educ, y = gdp))
+
+g +
+  geom_point(size = 3)
+```
+
+```{r}
+# p. 35
+g +
+  geom_point(aes(color = net_users), size = 3)
+```
+
+```{r}
+# p. 36
+g +
+  geom_text(aes(label = country, color = net_users), size = 3)
+```
+
+
+```{r}
+# p. 36
+g +
+  geom_point(aes(color = net_users, size = roadways))
+```
+
+
+
+
+
