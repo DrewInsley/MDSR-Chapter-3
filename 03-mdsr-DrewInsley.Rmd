@@ -13,12 +13,17 @@ rm(list = ls())
 # load packages
 library(mdsr)
 library(NHANES)
+library(macleish)
+library(babynames)
+library(Hmisc)
 #load data
 data("CIACountries")
 data("MedicareCharges")
 data("SAT_2010")
 data("ChargesNJ")
 data("HELPrct")
+data("whately_2015")
+data("KidsFeet")
 ```
 
 # Chapter Notes
@@ -207,4 +212,89 @@ NHANES %>%
   xlab("Age (years)") +
   ylab("Height (cm)")
 ```
+
+```{r}
+# p. 46
+whately_2015 %>%
+  ggplot(aes(x = when, y = temperature)) +
+  geom_line(color = "darkgray") +
+  geom_smooth() +
+  xlab(NULL) +
+  ylab("Temperature (degrees Fahrenheit)")
+```
+
+```{r}
+# p. 46
+favstats(length ~ sex, data = KidsFeet)
+```
+
+```{r}
+# p. 47
+KidsFeet %>%
+  ggplot(aes(x = sex, y = length)) +
+  geom_boxplot()
+```
+
+### Sec 3.2.3
+
+### Sec 3.2.4
+
+## Section 3.3
+
+```{r}
+# p. 49
+BabynamesDist <-
+  make_babynames_dist()
+
+BabynamesDist %>%
+  head(2)
+```
+
+```{r}
+# p. 50
+BabynamesDist %>%
+  filter(name == "Benjamin")
+```
+
+### Sec 3.3.1
+
+```{r}
+# p. 51
+joseph <-
+  BabynamesDist %>%
+  filter(name == "Joseph",
+         sex == "M")
+
+name_plot <-
+  joseph %>%
+  ggplot(aes(x = year))
+```
+
+```{r}
+# p. 51 
+name_plot <-
+  name_plot +
+  geom_bar(stat = "identity", aes(y = count_thousands * alive_prob), fill = "#b2d7e9", colour = "white")
+```
+
+```{r}
+# p. 51
+name_plot <- 
+  name_plot +
+  geom_line(aes(y = count_thousands), size = 2)
+```
+
+```{r}
+# p. 51
+name_plot <-
+  name_plot +
+  ylab("Number of People (thousands)") +
+  xlab(NULL)
+```
+
+```{r}
+# p. 51
+summary(name_plot)
+```
+
 
