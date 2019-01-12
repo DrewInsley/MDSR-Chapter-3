@@ -1,0 +1,30 @@
+---
+title: "R Notebook"
+author: "Drew Insley"
+date: "1-13-19"
+output: html_notebook
+---
+
+# Front Matter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Chapter Notes
+
+## Section 4.1  
+
+*[Note: include a placeholder for each section even if there's no programming required]*
+
+
+### Sec 4.1.1
