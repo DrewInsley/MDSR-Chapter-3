@@ -12,6 +12,7 @@ output: html_notebook
 rm(list = ls())
 # load packages
 library(mdsr)
+library(NHANES)
 #load data
 data("CIACountries")
 data("MedicareCharges")
@@ -194,5 +195,16 @@ g +
 # p. 45
 g +
   facet_wrap(~ SAT_rate)
+```
+
+```{r}
+# p. 45
+NHANES %>%
+  sample_n(size = 1000) %>%
+  ggplot(aes(x = Age, y = Height, color = Gender)) +
+  geom_point() +
+  geom_smooth() +
+  xlab("Age (years)") +
+  ylab("Height (cm)")
 ```
 
