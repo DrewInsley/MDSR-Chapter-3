@@ -15,6 +15,9 @@ library(mdsr)
 #load data
 data("CIACountries")
 data("MedicareCharges")
+data("SAT_2010")
+data("ChargesNJ")
+data("HELPrct")
 ```
 
 # Chapter Notes
@@ -88,6 +91,71 @@ g +
 
 ```{r}
 # p. 39
+ChargesNJ <-
+  MedicareCharges %>%
+  filter(stateProvider == "NJ")
+```
+
+## Section 3.2
+
+### Sec 3.2.1
+
+```{r}
+# p. 39
+g <-
+  SAT_2010 %>%
+  ggplot(aes(x = math))
+```
+
+```{r}
+# p. 40
+p <-
+  ChargesNJ %>%
+  ggplot(aes(x = reorder(drg, mean_charge), y = mean_charge)) +
+  geom_bar(fill = "gray", stat = "identity") +
+  ylab("Statewide Average Charges (%)") +
+  xlab("Medical Procedure (DRG)") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p
+```
+
+```{r}
+# p. 40
+p +
+ geom_point(data = MedicareCharges, size = 1, alpha = 0.3)
+```
+
+```{r}
+# p. 41
+g +
+  geom_histogram(binwidth = 10)
+```
+
+```{r}
+# p. 42
+g +
+  geom_density(adjust = 0.3)
+```
+
+```{r}
+# p. 42
+SAT_2010 %>%
+  head(10) %>%
+  ggplot(aes(x = reorder(state, math), y = math)) +
+  geom_bar(stat = "identity")
+```
+
+```{r}
+# p. 43
+HELPrct %>%
+  ggplot(aes(x = homeless)) +
+  geom_bar(aes(fill = substance), position = "fill") +
+  coord_flip()
+```
+
+```{r}
+
 ```
 
 
