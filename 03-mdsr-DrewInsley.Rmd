@@ -297,4 +297,71 @@ name_plot <-
 summary(name_plot)
 ```
 
+```{r}
+# p. 52
+wtd.quantile <-
+  Hmisc::wtd.quantile
+
+median_yob <-
+  joseph %>%
+  with(wtd.quantile(year, est_alive_today, probs = 0.5))
+
+
+median_yob
+```
+
+```{r}
+# p. 52
+name_plot <-
+  name_plot +
+  geom_bar(stat = "identity", colour = "white", fill = "#008fd5",
+           aes(y = ifelse(year == median_yob, est_alive_today / 1000, 0)))
+```
+
+```{r}
+# p. 52-53
+name_plot +
+  ggtitle("Age Distribution of American Boys Named Joseph") +
+  geom_text(x = 1935, y = 40, label = "Number of Josephs\nborn each year") +
+  geom_text(x = 1915, y = 13, label = "Number of Josephs\nborn each year\nestimated to be alive\non 1/1/2014", color = "#b2d7e9") +
+  geom_text(x = 2003, y = 40, label = "The median\nliving Joseph\nis 37 years old", 
+            colour = "darkgray") +
+  geom_curve(x = 1995, xend = 1974, y = 40, yend = 24, arrow = arrow(length = unit(0.3, "cm")), curvature = 0.5) +
+  ylim(0, 42)
+```
+
+```{r}
+# p. 53
+name_plot %+%
+  filter(BabynamesDist, name == "Josephine", sex == "F")
+```
+
+```{r}
+# p. 54
+names_plot <-
+  name_plot +
+  facet_wrap( ~ sex)
+
+names_plot %+%
+  filter(BabynamesDist, name == "Jessie")
+```
+
+```{r}
+# p. 54-55
+many_names_plot <-
+  name_plot +
+  facet_grid(name ~ sex)
+
+mnp <-
+  many_names_plot %+%
+  filter(BabynamesDist, name %in% c("Jessie", "Marion", "Jackie"))
+
+mnp
+```
+
+```{r}
+# p. 55
+mnp +
+  facet_grid(sex ~ name)
+```
 
